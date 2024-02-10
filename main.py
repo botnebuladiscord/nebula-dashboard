@@ -12,4 +12,4 @@ def home():
 def submit():
     return request.remote_addr
 
-app.run(port=8000)
+app.run(port=10000)
