@@ -1,0 +1,407 @@
+*{
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: AnonymousPro;
+}
+
+body{
+    background-color: #17181a;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    /* overflow-x: hidden; */
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+#logo{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    transform: translate(0%, 0%);
+    height: 15vh;
+}
+
+#title{
+    position: fixed;
+    top: 3%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, 0%);
+    font-size: 2.5vw;
+}
+
+#vl{
+    position: fixed;
+    top: 0%;
+    left: 21%;
+    background-color: white;
+    height: 100vh;
+    width: 0.15vw;
+}
+
+p#error{
+    font-size: 1.5vw;
+    text-decoration: none;
+}
+
+#dashboard{
+    position: fixed;
+    right: 0%;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    font-size: 2vw;
+    background-color: none;
+    text-decoration: none;
+    transition: ease-in-out 1s;
+}
+
+#dashboard:hover{
+    background-color: white;
+    color: #17181a;
+}
+
+#menu{
+    position: fixed;
+    top: 15%;
+    width: 20vw;
+}
+
+#menu ul{
+    list-style: none;
+}
+
+#menu li{
+    padding: 1vw;
+}
+
+#menu h1{
+    padding: 1vw;
+    font-size: 2vw;
+}
+
+#menu h1 img{
+    width: 2.5vw;
+    border-radius: 50%;
+    transform: translate(0%, 25%);
+}
+
+#menu hr{
+    margin-left: 1vw;
+}
+
+#menu ul li a{
+    color: white;
+    text-decoration: none;
+    font-size: 2vw;
+    display: flex;
+    transition: ease-in-out 500ms;
+}
+
+#menu ul li{
+    transition: ease-in-out 500ms;
+    cursor: pointer;
+}
+
+#menu ul li:hover{
+    background-color: white;
+}
+
+#menu ul li:hover a{
+    color: #17181a;
+}
+
+#overview{
+    position: absolute;
+    top: 0%;
+    left: 60%;
+    transform: translate(-50%, 0%);
+}
+
+#commands{
+    position: absolute;
+    top: 0%;
+    left: 60%;
+    transform: translate(-50%, 0%);
+}
+
+#roles{
+    position: absolute;
+    top: 0%;
+    left: 60%;
+    transform: translate(-50%, 0%);
+}
+
+section{
+    height: 100vh;
+    width: 70vw;
+}
+
+section h1{
+    padding-top: 3vh;
+    font-size: 4vw;
+    text-align: center;
+}
+
+div.serverinfo{
+    background-color: #232425;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 1vh;
+    border-radius: 25px;
+}
+
+div.serverinfo h2{
+    font-size: 3vw;
+}
+
+div.serverinfo p{
+    font-size: 1.75vw;
+}
+
+div.serverinfo p select option{
+    font-size: 1.75vw;
+    color: white;
+}
+
+div.serverinfo p select{
+    background-color: #17181a;
+    height: 4vh;
+    font-size: 1.75vw;
+    border-color: transparent;
+}
+
+#databar{
+    position: fixed;
+    bottom: 0%;
+    height: 0vh;
+    padding: 0vh;
+    width: 100vw;
+    font-size: 4vh;
+    color: transparent;
+    background-color: #28A745;
+    text-align: center;
+    transition: ease-in-out 1s;
+    overflow: hidden;
+}
+
+#databar ion-icon{
+    transform: translate(0%, 25%);
+}
+
+#check{
+    display: none;
+}
+
+#nickname{
+    background-color: #17181a;
+    height: 4vh;
+    font-size: 1.75vw;
+    border-color: transparent;
+    transform: translate(0, 0.5vh);
+}
+
+#setnick{
+    background-color: white;
+    color: #17181a;
+    height: 3.5vh;
+    font-size: 1.75vw;
+    border-color: transparent;
+    transform: translate(0, 25%);
+    border-radius: 10%;
+    cursor: pointer;
+    transition: ease-in-out 500ms;
+}
+
+#setnick:hover{
+    background-color: #28A745;
+    color: white;
+}
+
+div.botsettings{
+    background-color: #232425;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 1vh;
+    border-radius: 25px;
+}
+
+div.botsettings h2{
+    font-size: 3vw;
+}
+
+div.botsettings p{
+    font-size: 1.75vw;
+}
+
+#updates_channel option{
+    font-size: 1.75vw;
+    color: white;
+}
+
+#updates_channel{
+    background-color: #17181a;
+    height: 4vh;
+    font-size: 1.75vw;
+    border-color: transparent;
+}
+
+.cmdbtn{
+    background-color: #28A745;
+    border: none;
+    border-radius: 15vw;
+    height: 2vw;
+    width: 4vw;
+    cursor: pointer;
+}
+
+.permsbtn{
+    background-color: #17181a;
+    color: white;
+    border: none;
+    height: 2vw;
+    font-size: 1vw;
+    border-radius: 5%;
+    cursor: pointer;
+}
+
+.permsbtn:hover{
+    background-color: white;
+    color: #17181a;
+}
+
+#cmdtext{
+    font-size: 2vw;
+    background-color: #17181a;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    width: 1%;
+    white-space: nowrap;
+}
+
+#content{
+    display: none;
+    width: 100%;
+}
+
+#content p{
+    font-size: 1.5vw;
+    width: 100%;
+    padding-left: 1vw;
+}
+
+#command{
+    height: fit-content;
+    position: relative;
+    top: 10%;
+    width: 70%;
+    left: 0%;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    transform: translate(25%, 0%);
+    z-index: 1;
+}
+
+#role{
+    height: fit-content;
+    position: relative;
+    top: 10%;
+    width: 70%;
+    left: 0%;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    transform: translate(25%, 0%);
+    z-index: 1;
+}
+
+div.rolecontent{
+    background-color: #36393e;
+    border-radius: 5px;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    text-align: left;
+}
+
+#roletext{
+    font-size: 2vw;
+    background-color: #17181a;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    white-space: nowrap;
+}
+
+#roletext ion-icon{
+    transform: translate(0%, 25%);
+}
+
+div.command-content{
+    background-color: #36393e;
+    border-radius: 5px;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    text-align: left;
+}
+
+#icon{
+    float: right;
+    font-size: 2vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    transform: translate(0%, 0%);
+}
+
+#search{
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    color: white;
+    background-color: #36393e;
+    height: 4vh;
+    width: 30vw;
+    border-radius: 15px;
+    font-size: 1.5vw;
+    border: none;
+    
+}
+
+@media only screen and (max-width:920px){
+    #logo{
+        height: 10vh;
+    }
+    #menu ul li a{
+        font-size: 4vw;
+    }
+    div.serverinfo h2{
+        font-size: 5vw;
+    }
+    div.serverinfo p{
+        font-size: 4vw;
+    }
+    #menu h1 img{
+        width: 5vw;
+    }
+    #menu h1{
+        font-size: 2vw;
+    }
+}

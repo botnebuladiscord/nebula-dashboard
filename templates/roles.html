@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/manage.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/fonts.css">
+    <link rel="icon" type="image/x-icon" href="/static/assets/logo.ico">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script type="module" src="/static/js/roles.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {% if server != None %}
+        <title>Manage {{server['name']}}</title>
+    {% else %}
+        <title>Error</title>
+    {% endif %}
+</head>
+<body>
+    <img id="logo" src="/static/assets/logo.png">
+    <div id="title">
+        {% if server == None %}
+            <h1>Manage Server</h1>
+        {% endif %}
+    </div>
+    {% if server == None %}
+        <p id="error">You cannot manage this server without Manage Server permissions</p>
+    {% else %}
+        <div id="menu">
+            {% if server['icon'] == None %}
+                <h1><img src="/static/assets/logo.png">&nbsp;{{server['name']}}</h1>
+            {% else %}
+                <h1><img src="https://cdn.discordapp.com/icons/{{server['id']}}/{{server['icon']}}.png">&nbsp;{{server['name']}}</h1>
+            {% endif %}
+            <hr>
+            <ul>
+                <li><a href="/manage/{{server['id']}}">Overview</a></li>
+                <li><a href="/manage/{{server['id']}}/commands">Commands</a></li>
+                <li><a href="#">Roles</a></li>
+                <li><a href="/manage/{{server['id']}}/emojis">Emojis</a></li>
+            </ul>
+        </div>
+        <div id="vl"></div>
+        <section id="roles">
+            <h1>Roles</h1>
+            <br>
+            <input type="text" id="search" placeholder="Search for a role"> 
+            {% for i in roles %}
+                <div id="role">
+                    {% if i['name'] == '@everyone' %}
+                        <div class="rolecontent" id="Default Permissions [@everyone]">
+                            <p id="roletext"><ion-icon name="person-sharp" style="color: #{{i['color']}};"></ion-icon> Default Permissions [@everyone]</p>
+                    {% else %}
+                        <div class="rolecontent" id="{{i['name']}}">
+                            <p id="roletext"><ion-icon name="person-sharp" style="color: #{{i['color']}};"></ion-icon> {{i['name']}}</p>
+                    {% endif %}
+                        </div>
+                </div> 
+            {% endfor %}     
+        </section>
+    {% endif %}
+    <a href="/home" id="dashboard">Dashboard</a>
+    <span id="databar"><ion-icon name="checkmark-circle-outline"></ion-icon> Saved</span>
+</body>
+</html>

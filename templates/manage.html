@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/manage.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/fonts.css">
+    <link rel="icon" type="image/x-icon" href="/static/assets/logo.ico">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script type="module" src="/static/js/manage.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {% if server != None %}
+        <title>Manage {{server['name']}}</title>
+    {% else %}
+        <title>Error</title>
+    {% endif %}
+</head>
+<script type="module">
+    function change_verification_level() {
+        var selected = document.getElementById("verification_level").value;
+        $.getJSON("/change_verification_level/"+String(selected), function() {});
+        var databar = document.getElementById("databar");
+        databar.style.padding = "2vh";
+        databar.style.height = "6vh";
+        databar.style.color = "white";
+        setTimeout(function() {
+            databar.style.color = "transparent";
+            databar.style.height = "0vh";
+            databar.style.padding = "0vh";
+        }, 5000);
+        return false;
+        // window.location.href = "/change/"+String(selected);
+    }
+    var select = document.getElementById("verification_level");
+    select.addEventListener('change', change_verification_level);
+
+    function change_bot_nickname() {
+        var nickname = document.getElementById("nickname").value;
+        if (nickname == ""){
+            nickname = "n"
+        }
+        $.getJSON("/change_bot_nickname/"+String(nickname), function() {});
+        var databar = document.getElementById("databar");
+        databar.style.padding = "2vh";
+        databar.style.height = "6vh";
+        databar.style.color = "white";
+        setTimeout(function() {
+            databar.style.color = "transparent";
+            databar.style.height = "0vh";
+            databar.style.padding = "0vh";
+        }, 5000);
+        return false;
+        // window.location.href = "/change/"+String(selected);
+    }
+    var setnick = document.getElementById("setnick");
+    setnick.addEventListener('click', change_bot_nickname);
+
+    function change_updates_channel() {
+        var selected = document.getElementById("updates_channel").value;
+        $.getJSON("/change_updates_channel/"+String(selected), function() {});
+        var databar = document.getElementById("databar");
+        databar.style.padding = "2vh";
+        databar.style.height = "6vh";
+        databar.style.color = "white";
+        setTimeout(function() {
+            databar.style.color = "transparent";
+            databar.style.height = "0vh";
+            databar.style.padding = "0vh";
+        }, 5000);
+        return false;
+        // window.location.href = "/change/"+String(selected);
+    }
+    var select = document.getElementById("updates_channel");
+    select.addEventListener('change', change_updates_channel);
+</script>
+<body>
+    <img id="logo" src="/static/assets/logo.png">
+    <div id="title">
+        {% if server == None %}
+            <h1>Manage Server</h1>
+        {% endif %}
+    </div>
+    {% if server == None %}
+        <p id="error">You cannot manage this server without Manage Server permissions</p>
+    {% else %}
+        <div id="menu">
+            {% if server['icon'] == None %}
+                <h1><img src="/static/assets/logo.png">&nbsp;{{server['name']}}</h1>
+            {% else %}
+                <h1><img src="https://cdn.discordapp.com/icons/{{server['id']}}/{{server['icon']}}.png">&nbsp;{{server['name']}}</h1>
+            {% endif %}
+            <hr>
+            <ul>
+                <li><a href="#">Overview</a></li>
+                <li><a href="/manage/{{server['id']}}/commands">Commands</a></li>
+                <li><a href="/manage/{{server['id']}}/roles">Roles</a></li>
+                <li><a href="/manage/{{server['id']}}/emojis">Emojis</a></li>
+            </ul>
+        </div>
+        <div id="vl"></div>
+        <section id="overview">
+            <h1>Overview</h1>
+            <br>
+            <div class="serverinfo">
+                <h2>Server Info</h2>
+                <br>
+                <p>
+                    <b>Channels:</b> {{channels | length}}<br>
+                    <b>Roles:</b> {{server['roles'] | length}}<br>
+                    <b>Region:</b> {{server['region']}}<br>
+                    <b>Server Id:</b> {{server['id']}}<br>
+                    <b>Verification Level:</b> 
+                            <select id="verification_level">
+                                {% set v_level = ["NONE", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"] %}
+                                {% for i in range(5) %}
+                                    {% if i == server['verification_level'] %}
+                                        <option value="{{i}}" selected>{{v_level[i]}}</option>
+                                    {% else %}
+                                        <option value="{{i}}">{{v_level[i]}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                </p>
+            </div>
+            <br><br>
+            <div class="botsettings">
+                <h2>Bot Settings</h2>
+                <br>
+                <p>
+                    {% if me["nick"] == None %}
+                        <b>Nickname:</b> <input type="text" id="nickname" placeholder="{{me['user']['username']}}">&nbsp;<button id="setnick">Set</button>
+                    {% else %}
+                        <b>Nickname:</b> <input type="text" id="nickname" placeholder="{{me['nick']}}">&nbsp;<button id="setnick">Set</button>
+                    {% endif %}
+                    <br><br>
+                    <b>Updates Channel:</b> 
+                        <select id="updates_channel">
+                            <option value="placeholder" selected disabled>Select a Channel</option>
+                            {% for i in channels %}
+                                {% if i['type'] == 0 %}
+                                    <p>{{i}}</p>
+                                    {% if i == server['updates_channel'] %}
+                                        <option value="{{i['id']}}" selected>#{{i['name']}}</option>
+                                    {% else %}
+                                        <option value="{{i['id']}}">#{{i['name']}}</option>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                </p>
+            </div>
+        </section>
+    {% endif %}
+    <a href="/home" id="dashboard">Dashboard</a>
+    <span id="databar"><ion-icon name="checkmark-circle-outline"></ion-icon> Saved</span>
+</body>
+</html>

@@ -1,0 +1,151 @@
+*{
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: AnonymousPro;
+}
+
+body{
+    background-color: #17181a;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    /* overflow-x: hidden; */
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#logo{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    transform: translate(0%, 0%);
+    height: 15vh;
+}
+
+#title{
+    position: inherit;
+    top: 3%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, 0%);
+    font-size: 2.5vw;
+}
+
+#login{
+    float: right;
+    padding: 2vh;
+    font-size: 2vw;
+    background-color: none;
+    text-decoration: none;
+    transition: ease-in-out 1s;
+}
+
+#login:hover{
+    background-color: white;
+    color: #17181a;
+}
+
+#logout{
+    float: right;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    font-size: 2vw;
+    background-color: none;
+    text-decoration: none;
+    transition: ease-in-out 1s;
+    display: none;
+}
+
+#logout:hover{
+    background-color: white;
+    color: #17181a;
+}
+
+#avatar{
+    float: right;
+    border-radius: 50%;
+    width: 5vw;
+    padding: 2vh;
+}
+
+#username{
+    float: right;
+    font-size: 2vw;
+    padding-top: 2vh;
+    padding-bottom: 2vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    transform: translate(0%, 25%);
+}
+
+#user{
+    float: right;
+    height: fit-content;
+    width: 37vw;
+    cursor: pointer;
+}
+
+#userspan{
+    float: right;
+    height: fit-content;
+    width: fit-content;
+    cursor: pointer;
+    transition: ease-in-out 1s;
+}
+
+#user span#userspan p#username span.logouttext{
+    display: none;
+}
+
+#user:hover span#userspan{
+    background-color: white;
+}
+
+#user:hover span#userspan p#username span.logouttext{
+    display: block;
+    color: #17181a;
+    transition: ease-in-out 1s;
+}
+
+#user:hover span#userspan p#username span.nametext{
+    display: none;
+}
+
+#servers{
+    position: absolute;
+    top: 20%;
+    left: 0%;
+    padding-left: 5vw;
+    padding-right: 5vw;
+}
+
+#servers p{
+    text-align: center;
+    font-size: 1.5vw;
+}
+
+#guild_icon{
+    border-radius: 50%;
+    width: 10vw;
+    cursor: pointer;
+}
+
+#servers a{
+    text-align: center;
+}
+
+div.server{
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    width: min-content;
+}
+
+span.servername{
+    font-size: 2.25vh;
+}

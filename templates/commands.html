@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/manage.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/fonts.css">
+    <link rel="icon" type="image/x-icon" href="/static/assets/logo.ico">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script type="module" src="/static/js/commands.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {% if server != None %}
+        <title>Manage {{server['name']}}</title>
+    {% else %}
+        <title>Error</title>
+    {% endif %}
+</head>
+<body>
+    <img id="logo" src="/static/assets/logo.png">
+    <div id="title">
+        {% if server == None %}
+            <h1>Manage Server</h1>
+        {% endif %}
+    </div>
+    {% if server == None %}
+        <p id="error">You cannot manage this server without Manage Server permissions</p>
+    {% else %}
+        <div id="menu">
+            {% if server['icon'] == None %}
+                <h1><img src="/static/assets/logo.png">&nbsp;{{server['name']}}</h1>
+            {% else %}
+                <h1><img src="https://cdn.discordapp.com/icons/{{server['id']}}/{{server['icon']}}.png">&nbsp;{{server['name']}}</h1>
+            {% endif %}
+            <hr>
+            <ul>
+                <li><a href="/manage/{{server['id']}}">Overview</a></li>
+                <li><a href="#">Commands</a></li>
+                <li><a href="/manage/{{server['id']}}/roles">Roles</a></li>
+                <li><a href="/manage/{{server['id']}}/emojis">Emojis</a></li>
+            </ul>
+        </div>
+        <div id="vl"></div>
+        <section id="commands">
+            <h1>Commands</h1>
+            <br>
+                <input type="text" id="search" placeholder="Search for a command"> 
+                {% for i in commands %}
+                    <div id="command">
+                        <div class="command-content" id="{{i}}">
+                            <table>
+                                <tr>
+                                    <td id="cmdtext">/{{i}}</td>
+                                    {% if commands[i]['p'] == True %}
+                                        <td id="icon"><button class="cmdbtn"></button>&nbsp;<ion-icon name="chevron-down-outline"></ion-icon><ion-icon name="chevron-up-outline" style="display: none;"></ion-icon></td>
+                                    {% else %}
+                                        <td id="icon"><button class="cmdbtn" style="background-color:red;"></button>&nbsp;<ion-icon name="chevron-down-outline"></ion-icon><ion-icon name="chevron-up-outline" style="display: none;"></ion-icon></td>
+                                    {% endif %}
+                                </tr>
+                            </table>
+                            <div class="{{i}}" id="content">
+                                <p>{{commands[i]['d']}}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+        </section>
+    {% endif %}
+    <a href="/home" id="dashboard">Dashboard</a>
+    <span id="databar"><ion-icon name="checkmark-circle-outline"></ion-icon> Saved</span>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/fonts.css">
+    <link rel="icon" type="image/x-icon" href="/static/assets/logo.ico">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script type="module" src="/static/js/home.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <title>Dashboard</title>
+</head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<body>
+    <img id="logo" src="/static/assets/logo.png">
+    <div id="title">
+        <h1>Dashboard</h1>
+    </div>
+    {% if current_user %}
+        <div id="user">
+            <span id="userspan">
+                <p id="username">
+                    <span class="logouttext">Logout</span>
+                    <span class="nametext">{{name}}</span>
+                </p>
+                <img src={{avatar}} id="avatar">
+            </span>
+        </div>
+        <a href="/logout" id="logout">Logout</a>
+    {% else %}
+        <a href={{url}} id="login">Login</a>
+    {% endif %}
+    <div id="servers">
+        {% if servers == [] %}
+            <p>Login to View Servers</p>
+        {% else %}
+            {% for server in servers %}
+                {% if server.icon_url == None %}
+                    <div class="server">
+                        <a href="/manage/{{server.id}}"><img id="guild_icon" src=/static/assets/logo.png></a>
+                        <span class="servername">{{server.name}}</span>
+                    </div> 
+                {% else %}
+                    <div class="server">
+                        <a href="/manage/{{server.id}}"><img id="guild_icon" src={{server.icon_url}}></a>
+                        <span class="servername">{{server.name}}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
