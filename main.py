@@ -96,6 +96,8 @@ def manage_overview(serverid):
     except:
         server = None
         return render_template('/manage.html', server=server)
+    if server == None:
+        return render_template('/manage.html', server=server)
     session['current_server'] = server['id']
     with open('static/assets/commands.json') as file:
         commands = json.load(file)
@@ -132,6 +134,8 @@ def manage_commands(serverid):
     except:
         server = None
         return render_template('/commands.html', server=server)
+    if server == None:
+        return render_template('/manage.html', server=server)
     session['current_server'] = server['id']
     commandsraw = requests.get(f'https://discord.com/api/v10/applications/{bot_id}/commands', headers=header)
     commandsraw = commandsraw.json()
@@ -312,6 +316,8 @@ def manage_roles(serverid):
     except:
         server = None
         return render_template('/roles.html', server=server)
+    if server == None:
+        return render_template('/manage.html', server=server)
     session['current_server'] = server['id']
     for i in rolesraw:
         if i['color'] != 0:
