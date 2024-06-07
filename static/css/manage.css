@@ -141,6 +141,10 @@ p#error{
     transform: translate(-50%, 0%);
 }
 
+#role:hover{
+    cursor: pointer;
+}
+
 section{
     height: 100vh;
     width: 70vw;
@@ -193,6 +197,7 @@ div.serverinfo p select{
     text-align: center;
     transition: ease-in-out 1s;
     overflow: hidden;
+    z-index: 12;
 }
 
 #databar ion-icon{
@@ -204,6 +209,14 @@ div.serverinfo p select{
 }
 
 #nickname{
+    background-color: #17181a;
+    height: 4vh;
+    font-size: 1.75vw;
+    border-color: transparent;
+    transform: translate(0, 0.5vh);
+}
+
+#rolename{
     background-color: #17181a;
     height: 4vh;
     font-size: 1.75vw;
@@ -223,7 +236,24 @@ div.serverinfo p select{
     transition: ease-in-out 500ms;
 }
 
+#setrolename{
+    background-color: white;
+    color: #17181a;
+    height: 3.5vh;
+    font-size: 1.75vw;
+    border-color: transparent;
+    transform: translate(0, 25%);
+    border-radius: 10%;
+    cursor: pointer;
+    transition: ease-in-out 500ms;
+}
+
 #setnick:hover{
+    background-color: #28A745;
+    color: white;
+}
+
+#setrolename:hover{
     background-color: #28A745;
     color: white;
 }
@@ -383,6 +413,67 @@ div.command-content{
     font-size: 1.5vw;
     border: none;
     
+}
+
+#popup{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, .9);
+    display: none;
+    transition: ease-in-out 1s;
+}
+
+#popup:hover{
+    cursor: pointer;
+}
+
+#popup-content{
+    position: absolute;
+    opacity: 2;
+    top: 10%;
+    left: 50%;
+    width: 50%;
+    height: 70%;
+    transform: translate(-50%, 0%);
+    z-index: 6;
+    background-color: #232425;
+}
+
+#popup-content{
+    cursor: default;
+}
+
+#popup-content h1{
+    padding: 10px;
+    text-align: center;
+    font-size: 5vh;
+}
+
+#popup-content h2{
+    padding: 10px;
+    text-align: center;
+    font-size: 3.5vh;
+    background-color: #17181a;
+}
+
+#popup-content p{
+    padding: 15px;
+    font-size: 3vh;
+}
+
+#popup_color{
+    border: 0;
+    padding: 0%;
+    background-color: transparent;
+    transform: translate(0%, 10%);
+}
+
+#popup_color:hover{
+    cursor: pointer;
 }
 
 @media only screen and (max-width:920px){
