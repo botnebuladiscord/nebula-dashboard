@@ -325,6 +325,22 @@ def manage_roles(serverid):
         else:
             i['color'] = "99AAB5"
     return render_template('/roles.html', server=server, me=me, roles=rolesraw)
+
+@app.route('/change_role_color/<roleid>/<color>')
+def change_role_color(roleid, color):
+    serverid = session.get('current_server')
+    header = {'Authorization':'Bot '+token, 'Content-Type': 'application/json'}
+    response = requests.patch(f'https://discord.com/api/v10//guilds/{serverid}/roles/{roleid}', headers=header, json={'color':int(color, 16)})
+    return {'status': response.status_code}
+
+@app.route('/set_role_name/<roleid>/<rolename>')
+def change_role_name(roleid, rolename):
+    print(roleid, rolename)
+    serverid = session.get('current_server')
+    header = {'Authorization':'Bot '+token, 'Content-Type': 'application/json'}
+    response = requests.patch(f'https://discord.com/api/v10//guilds/{serverid}/roles/{roleid}', headers=header, json={'name':rolename})
+    print({'status': response.status_code})
+    return {'status': response.status_code}
     
 
 app.run(host='0.0.0.0', port=1000, debug=True)
