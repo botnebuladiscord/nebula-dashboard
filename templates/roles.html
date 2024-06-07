@@ -46,20 +46,29 @@
             <br>
             <input type="text" id="search" placeholder="Search for a role"> 
             {% for i in roles %}
-                <div id="role">
+                <div id="role" class="role" name="{{i['id']}}">
                     {% if i['name'] == '@everyone' %}
                         <div class="rolecontent" id="Default Permissions [@everyone]">
                             <p id="roletext"><ion-icon name="person-sharp" style="color: #{{i['color']}};"></ion-icon> Default Permissions [@everyone]</p>
                     {% else %}
                         <div class="rolecontent" id="{{i['name']}}">
-                            <p id="roletext"><ion-icon name="person-sharp" style="color: #{{i['color']}};"></ion-icon> {{i['name']}}</p>
+                            <p id="roletext"><ion-icon id="{{i['id']}}" name="person-sharp" style="color: #{{i['color']}};"></ion-icon> {{i['name']}}</p>
                     {% endif %}
                         </div>
-                </div> 
-            {% endfor %}     
+                </div>  
+            {% endfor %}   
         </section>
     {% endif %}
     <a href="/home" id="dashboard">Dashboard</a>
-    <span id="databar"><ion-icon name="checkmark-circle-outline"></ion-icon> Saved</span>
+    <span id="databar"><ion-icon name="checkmark-circle"></ion-icon> Saved</span>
+    <div id="popup">
+        <div id="popup-content">
+            <h1>Edit Role</h1>
+            <h2 id="popup_rname">[ROLENAME]</h2>
+            <p><b>Name:</b> <input type="text" id="rolename">&nbsp;<button id="setrolename">Set</button></p>
+            <p><b>Color:</b> <input type="color" id="popup_color" value="#ff0000"></p>
+            <h2><b>Command Permissions</b> </h2>
+        </div>
+    </div>  
 </body>
 </html>
