@@ -22,27 +22,6 @@ function search(){
     }
 }
 
-function popupview(element){
-    const rgb2hex = (rgb) => `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`
-    var popup = document.getElementById('popup');
-    popup.style.display = "block";
-    var roleid = element.currentTarget.getAttribute('name');
-    var rolename = element.currentTarget.children[0].getAttribute('id');
-    var rolecolor = element.currentTarget.children[0].children[0].children[0].style.color;
-    var popup_rname = document.getElementById('popup_rname');
-    popup_rname.innerHTML = rolename
-    popup_rname.setAttribute("class", roleid);
-    var popup_color = document.getElementById('popup_color');
-    popup_color.defaultValue = rgb2hex(String(rolecolor));
-    // if (String(rolecolor) == ""){
-    //     popup_color.defaultValue = "#ffffff";
-    // }
-    // else{
-    //     popup_color.defaultValue = rgb2hex(String(rolecolor));
-    // }
-    $("body").css("overflow", "hidden");
-}
-
 
 function popupviewclose(){
     if (popupc == false){
@@ -61,7 +40,7 @@ function popupcontent(){
 
 function rolecolor(element){
     var databar = document.getElementById("databar");
-    var roleid = element.currentTarget.parentElement.parentElement.children[1].getAttribute('class');
+    var roleid = element.currentTarget.parentElement.parentElement.children[2].getAttribute('class');
     var color = String(element.currentTarget.value);
     $.getJSON("/change_role_color/"+String(roleid)+"/"+String(element.currentTarget.value).replace('#', ''), function() {}).done(function(data, textStatus, jqXHR){
         var response = jqXHR.responseText;
@@ -96,7 +75,7 @@ function rolecolor(element){
 
 function set_role_name(element) {
     var rolename = document.getElementById("rolename").value;
-    var roleid = element.currentTarget.parentElement.parentElement.children[1].getAttribute('class');
+    var roleid = element.currentTarget.parentElement.parentElement.children[2].getAttribute('class');
     $.getJSON("/set_role_name/"+String(roleid)+"/"+String(rolename), function() {}).done(function(data, textStatus, jqXHR){
         var response = jqXHR.responseText;
         if (JSON.parse(response)['status'] == 403){
@@ -136,11 +115,6 @@ window.onload=function(){
     var searchInput = document.getElementById('search');
     searchInput.addEventListener('keyup', search);
 
-    var elements = document.getElementsByClassName('role');
-    for (var element of elements){
-        element.addEventListener('click', popupview);
-    }
-
     var searchInput = document.getElementById('popup');
     searchInput.addEventListener('click', popupviewclose);
 
@@ -152,4 +126,8 @@ window.onload=function(){
 
     var setnick = document.getElementById("setrolename");
     setnick.addEventListener('click', set_role_name);
+
+    var cross = document.getElementById("cross-icon");
+    cross.addEventListener('click', popupviewclose);
+
 }

@@ -16,6 +16,243 @@
         <title>Error</title>
     {% endif %}
 </head>
+<script type="module"> 
+    function addrule_func(element) {
+        var permissionsdiv = document.getElementById("permissionsdiv");
+        permissionsdiv.innerHTML += `<div id="permission"><select id="commands-select" class="commands-select">{% for i in commands %}<option value="{{i}}">{{i}}</option>{% endfor %}</select><button class="rulebtn" style="background-color:#28A745;"></button><ion-icon id="delrule" class="delrule" name="trash"></ion-icon></div>`;
+        function delrule_func(element) {
+            var cmdname = element.currentTarget.parentElement.children[0].value
+            var roleid = element.currentTarget.parentElement.parentElement.parentElement.children[2].getAttribute('class');
+            $.getJSON("/change_role_status_e/"+String(cmdname)+"/"+String(roleid), function() {});
+            element.currentTarget.parentElement.remove();
+        }
+        var elements = document.getElementsByClassName('delrule');
+        for (var element of elements){
+            element.addEventListener('click', delrule_func);
+        }
+        function rulebtn(element){
+            if (element.currentTarget.style.backgroundColor == "red"){
+                element.currentTarget.style.backgroundColor = "#28A745";
+                var databar = document.getElementById("databar");
+                databar.style.padding = "2vh";
+                databar.style.height = "6vh";
+                databar.style.color = "white";
+                var cmdname = element.currentTarget.parentElement.children[0].value
+                var roleid = element.currentTarget.parentElement.parentElement.parentElement.children[2].getAttribute('class');
+                $.getJSON("/change_role_status_e/"+String(cmdname)+"/"+String(roleid), function() {}).done(function(data, textStatus, jqXHR){
+                    var response = jqXHR.responseText;
+                    if (JSON.parse(response)['status'] == 403){
+                        databar.innerHTML = `<ion-icon name="ban"></ion-icon> Error<br>Your role has to be above the role trying to be edited`
+                        databar.style.padding = "2vh";
+                        databar.style.height = "8vh";
+                        databar.style.color = "white";
+                        databar.style.backgroundColor = "#ff3126";
+                        setTimeout(function() {
+                            databar.style.color = "transparent";
+                            databar.style.height = "0vh";
+                            databar.style.padding = "0vh";
+                        }, 10000);
+                    }
+                    else{
+                        databar.style.padding = "2vh";
+                        databar.style.height = "6vh";
+                        databar.style.color = "white";
+                        databar.innerHTML = `<ion-icon name="checkmark-circle"></ion-icon> Saved`
+                        databar.style.backgroundColor = "#28A745";
+                        setTimeout(function() {
+                            databar.style.color = "transparent";
+                            databar.style.height = "0vh";
+                            databar.style.padding = "0vh";
+                        }, 2000);
+                    }
+                });
+            }
+            else{
+                element.currentTarget.style.backgroundColor = "red";
+                var databar = document.getElementById("databar");
+                databar.style.padding = "2vh";
+                databar.style.height = "6vh";
+                databar.style.color = "white";
+                var cmdname = element.currentTarget.parentElement.children[0].value
+                var roleid = element.currentTarget.parentElement.parentElement.parentElement.children[2].getAttribute('class');
+                $.getJSON("/change_role_status_d/"+String(cmdname)+"/"+String(roleid), function() {}).done(function(data, textStatus, jqXHR){
+                    var response = jqXHR.responseText;
+                    if (JSON.parse(response)['status'] == 403){
+                        databar.innerHTML = `<ion-icon name="ban"></ion-icon> Error<br>Your role has to be above the role trying to be edited`
+                        databar.style.padding = "2vh";
+                        databar.style.height = "8vh";
+                        databar.style.color = "white";
+                        databar.style.backgroundColor = "#ff3126";
+                        setTimeout(function() {
+                            databar.style.color = "transparent";
+                            databar.style.height = "0vh";
+                            databar.style.padding = "0vh";
+                        }, 10000);
+                    }
+                    else{
+                        databar.style.padding = "2vh";
+                        databar.style.height = "6vh";
+                        databar.style.color = "white";
+                        databar.innerHTML = `<ion-icon name="checkmark-circle"></ion-icon> Saved`
+                        databar.style.backgroundColor = "#28A745";
+                        setTimeout(function() {
+                            databar.style.color = "transparent";
+                            databar.style.height = "0vh";
+                            databar.style.padding = "0vh";
+                        }, 2000);
+                    }
+                });
+            }
+        }
+        var elements = document.getElementsByClassName('rulebtn');
+        for (var element of elements){
+            element.addEventListener('click', rulebtn);
+        }
+        function commandsselect(element){
+            var rawlist = element.currentTarget.options[element.currentTarget.selectedIndex].outerHTML.split('>');
+            element.currentTarget.options[element.currentTarget.selectedIndex].outerHTML = rawlist[0] + " selected" + ">" + rawlist[1] + ">"
+        }
+        var elements = document.getElementsByClassName('commands-select');
+        for (var element of elements){
+            element.addEventListener('change', commandsselect);
+        }
+    }
+    
+    var addrule = document.getElementById("addrule");
+    addrule.addEventListener('click', addrule_func);
+
+    function popupview(element){
+        const rgb2hex = (rgb) => `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`
+        var popup = document.getElementById('popup');
+        popup.style.display = "block";
+        var roleid = element.currentTarget.getAttribute('name');
+        var rolename = element.currentTarget.children[0].getAttribute('id');
+        var rolecolor = element.currentTarget.children[0].children[0].children[0].style.color;
+        var popup_rname = document.getElementById('popup_rname');
+        popup_rname.innerHTML = rolename
+        popup_rname.setAttribute("class", roleid);
+        var popup_color = document.getElementById('popup_color');
+        popup_color.defaultValue = rgb2hex(String(rolecolor));
+        var permissionsdiv = document.getElementById('permissionsdiv');
+        var popupc = document.getElementById(`p${roleid}`);
+        if (popupc.innerHTML != "None"){
+            var innercode = String(popupc.innerHTML);
+            innercode = innercode.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+            permissionsdiv.innerHTML = innercode;
+        }
+        else{
+            permissionsdiv.innerHTML = null;
+        }
+        function rulebtn(element){
+            if (element.currentTarget.style.backgroundColor == "red"){
+                element.currentTarget.style.backgroundColor = "#28A745";
+                var databar = document.getElementById("databar");
+                databar.style.padding = "2vh";
+                databar.style.height = "6vh";
+                databar.style.color = "white";
+                var cmdname = element.currentTarget.parentElement.children[0].value
+                var roleid = element.currentTarget.parentElement.parentElement.parentElement.children[2].getAttribute('class');
+                $.getJSON("/change_role_status_e/"+String(cmdname)+"/"+String(roleid), function() {}).done(function(data, textStatus, jqXHR){
+                    var response = jqXHR.responseText;
+                    if (JSON.parse(response)['status'] == 403){
+                        databar.innerHTML = `<ion-icon name="ban"></ion-icon> Error<br>Your role has to be above the role trying to be edited`
+                        databar.style.padding = "2vh";
+                        databar.style.height = "8vh";
+                        databar.style.color = "white";
+                        databar.style.backgroundColor = "#ff3126";
+                        setTimeout(function() {
+                            databar.style.color = "transparent";
+                            databar.style.height = "0vh";
+                            databar.style.padding = "0vh";
+                        }, 10000);
+                    }
+                    else{
+                        databar.style.padding = "2vh";
+                        databar.style.height = "6vh";
+                        databar.style.color = "white";
+                        databar.innerHTML = `<ion-icon name="checkmark-circle"></ion-icon> Saved`
+                        databar.style.backgroundColor = "#28A745";
+                        setTimeout(function() {
+                            databar.style.color = "transparent";
+                            databar.style.height = "0vh";
+                            databar.style.padding = "0vh";
+                        }, 2000);
+                    }
+                });
+            }
+            else{
+                element.currentTarget.style.backgroundColor = "red";
+                var databar = document.getElementById("databar");
+                databar.style.padding = "2vh";
+                databar.style.height = "6vh";
+                databar.style.color = "white";
+                var cmdname = element.currentTarget.parentElement.children[0].value
+                var roleid = element.currentTarget.parentElement.parentElement.parentElement.children[2].getAttribute('class');
+                $.getJSON("/change_role_status_d/"+String(cmdname)+"/"+String(roleid), function() {}).done(function(data, textStatus, jqXHR){
+                    var response = jqXHR.responseText;
+                    if (JSON.parse(response)['status'] == 403){
+                        databar.innerHTML = `<ion-icon name="ban"></ion-icon> Error<br>Your role has to be above the role trying to be edited`
+                        databar.style.padding = "2vh";
+                        databar.style.height = "8vh";
+                        databar.style.color = "white";
+                        databar.style.backgroundColor = "#ff3126";
+                        setTimeout(function() {
+                            databar.style.color = "transparent";
+                            databar.style.height = "0vh";
+                            databar.style.padding = "0vh";
+                        }, 10000);
+                    }
+                    else{
+                        databar.style.padding = "2vh";
+                        databar.style.height = "6vh";
+                        databar.style.color = "white";
+                        databar.innerHTML = `<ion-icon name="checkmark-circle"></ion-icon> Saved`
+                        databar.style.backgroundColor = "#28A745";
+                        setTimeout(function() {
+                            databar.style.color = "transparent";
+                            databar.style.height = "0vh";
+                            databar.style.padding = "0vh";
+                        }, 2000);
+                    }
+                });
+            }
+        }
+        var elements = document.getElementsByClassName('rulebtn');
+        for (var element of elements){
+            element.addEventListener('click', rulebtn);
+        }
+        function commandsselect(element){
+            var rawlist = element.currentTarget.options[element.currentTarget.selectedIndex].outerHTML.split('>');
+            element.currentTarget.options[element.currentTarget.selectedIndex].outerHTML = rawlist[0] + " selected" + ">" + rawlist[1] + ">"
+        }
+        var elements = document.getElementsByClassName('commands-select');
+        for (var element of elements){
+            element.addEventListener('change', commandsselect);
+        }
+        function delrule_func(element) {
+            var cmdname = element.currentTarget.parentElement.children[0].value
+            var roleid = element.currentTarget.parentElement.parentElement.parentElement.children[2].getAttribute('class');
+            $.getJSON("/change_role_status_del/"+String(cmdname)+"/"+String(roleid), function() {});
+            element.currentTarget.parentElement.remove();
+        }
+        var elements = document.getElementsByClassName('delrule');
+        for (var element of elements){
+            element.addEventListener('click', delrule_func);
+        }
+        $("body").css("overflow", "hidden");
+    }
+    
+    var elements = document.getElementsByClassName('role');
+    for (var element of elements){
+        element.addEventListener('click', popupview);
+    }
+
+    function changeweb(){
+        
+        console.log('test');
+        
+    }
+</script>
 <body>
     <img id="logo" src="/static/assets/logo.png">
     <div id="title">
@@ -37,7 +274,6 @@
                 <li><a href="/manage/{{server['id']}}">Overview</a></li>
                 <li><a href="/manage/{{server['id']}}/commands">Commands</a></li>
                 <li><a href="#">Roles</a></li>
-                <li><a href="/manage/{{server['id']}}/emojis">Emojis</a></li>
             </ul>
         </div>
         <div id="vl"></div>
@@ -52,9 +288,14 @@
                             <p id="roletext"><ion-icon name="person-sharp" style="color: #{{i['color']}};"></ion-icon> Default Permissions [@everyone]</p>
                     {% else %}
                         <div class="rolecontent" id="{{i['name']}}">
-                            <p id="roletext"><ion-icon id="{{i['id']}}" name="person-sharp" style="color: #{{i['color']}};"></ion-icon> {{i['name']}}</p>
+                            {% if i['color']|length == 5%}
+                            <p id="roletext"><ion-icon id="{{i['id']}}" name="person-sharp" style="color: #{{i['color']}}E;"></ion-icon> {{i['name']}}</p>
+                            {% else %}
+                                <p id="roletext"><ion-icon id="{{i['id']}}" name="person-sharp" style="color: #{{i['color']}};"></ion-icon> {{i['name']}}</p>
+                            {% endif %}
                     {% endif %}
                         </div>
+                <div id="p{{i['id']}}" class="popup-c">{{roleperms[i['name']]}}</div>
                 </div>  
             {% endfor %}   
         </section>
@@ -63,11 +304,13 @@
     <span id="databar"><ion-icon name="checkmark-circle"></ion-icon> Saved</span>
     <div id="popup">
         <div id="popup-content">
-            <h1>Edit Role</h1>
+            <h1>Edit Role</h1><p id="cross"><ion-icon id="cross-icon" name="close-circle-outline"></ion-icon></p>
             <h2 id="popup_rname">[ROLENAME]</h2>
             <p><b>Name:</b> <input type="text" id="rolename">&nbsp;<button id="setrolename">Set</button></p>
             <p><b>Color:</b> <input type="color" id="popup_color" value="#ff0000"></p>
             <h2><b>Command Permissions</b> </h2>
+            <button id="addrule">Add A Rule</button>
+            <div id="permissionsdiv"></div>
         </div>
     </div>  
 </body>
