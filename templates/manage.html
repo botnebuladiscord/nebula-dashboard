@@ -94,7 +94,6 @@
                 <li><a href="#">Overview</a></li>
                 <li><a href="/manage/{{server['id']}}/commands">Commands</a></li>
                 <li><a href="/manage/{{server['id']}}/roles">Roles</a></li>
-                <li><a href="/manage/{{server['id']}}/emojis">Emojis</a></li>
             </ul>
         </div>
         <div id="vl"></div>
@@ -111,7 +110,7 @@
                     <b>Server Id:</b> {{server['id']}}<br>
                     <b>Verification Level:</b> 
                             <select id="verification_level">
-                                {% set v_level = ["NONE", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"] %}
+                                {% set v_level = ["NONE", "LOW", "MEDIUM", "HIGH", "VERY HIGH"] %}
                                 {% for i in range(5) %}
                                     {% if i == server['verification_level'] %}
                                         <option value="{{i}}" selected>{{v_level[i]}}</option>
