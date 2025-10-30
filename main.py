@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, session, redirect
 from zenora import APIClient
 import os
 import requests
-import json
 
 app = Flask('Nebula - Dashboard', template_folder='templates')
 
