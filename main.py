@@ -17,6 +17,10 @@ updates_channel = 873941729219338311
 
 app.config['SECRET_KEY'] = 'session'
 
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html'), 404
+
 @app.route('/')
 @app.route('/home')
 def home():

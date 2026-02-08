@@ -1,0 +1,158 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Century Gothic;
+}
+
+body{
+    background-color: #17181a;
+    background-attachment: fixed;
+    background-size: cover;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.logo img{
+    float: left;
+    border-radius: 50%;
+    padding: 10px;
+    width: 100px;
+}
+
+.logo img{
+    float: left;
+    border-radius: 50%;
+    padding: 10px;
+    width: 100px;
+}
+
+.title{
+    float: top;
+    text-align: center;
+    font-size: xx-large;
+    padding: 15px;
+    color: lightblue;
+}
+
+.title h1{
+    font-weight: 100;
+    text-align: center;
+    font-size: 150px;
+    width: 100%;
+}
+
+.title h2{
+    text-align: center;
+    font-size: 50px;
+    width: 100%;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+    
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.subtitle{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: fit-content;
+}
+
+#img404{
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    height: 500px;
+    transform: translate(-50%, -50%);
+}
+
+#snakeboard {
+    position: absolute;
+    width: max-content;
+    height: max-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+#score {
+    text-align: center;
+    font-size: 140px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    color: white;
+    visibility: hidden;
+    transform: translate(-50%,-50%);
+}
+
+button {
+    margin-top: 20px;
+    line-height: 60px;
+    font-weight: bold;
+    border: none;
+    color: white;
+    font-size: 40px;
+    background-color: transparent;
+}
+
+#returnlink{
+    color: lightblue;
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+}
+
+#returnlink:hover{
+    color: white;
+    background-color: gray;
+    transition: ease-in-out 500ms;
+}
+
+.subtitle h1{
+    color: white;
+    font-size: 40px;
+}
+
+#nobutton{
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+}
+/* Set additional styling options for the columns*/
+
+@media screen and (max-width: 600px) {
+    #img404{
+        height: 100px;
+    }
+    #snakeboard{
+        height: 0px;
+        width: 0px;
+    }
+    .subtitle h1{
+        font-size: 20px;
+    }
+    #score{
+        height: 0px;
+        width: 0px;
+    }
+    #button{
+        height: 0px;
+        width: 0px;
+        visibility: hidden;
+    }
+    #nobutton{
+        font-size: 20px;
+        height: fit-content;
+        width: fit-content;
+        visibility: visible;
+    }
+}
