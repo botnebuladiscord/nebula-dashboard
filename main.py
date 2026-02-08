@@ -479,5 +479,5 @@ def manage_emojis(serverid):
     
     return render_template('/emojis.html', server=server, me=me, emojis=guild['emojis'])
         
-
-app.run(host='0.0.0.0', port=1000, debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=1000, debug=True)
