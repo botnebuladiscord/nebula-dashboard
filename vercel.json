@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    {
+      "destination": "main.py"
+    }
+  ]
+}
